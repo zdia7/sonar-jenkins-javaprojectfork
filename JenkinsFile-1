@@ -1,0 +1,26 @@
+pipeline {
+  environment {
+    PATH = "$PATH:/Users/zaynaboudia/Applications/apache-maven-3.8.6"
+  }
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh 'mvn clean package'
+      }
+    }
+    
+    stage('SonarQube analysis') {
+    withSonarQubeEnv('My SonarQube Server') {
+      sh 'mvn clean package sonar:sonar'
+    } // submitted SonarQube taskId is automatically attached to the pipeline context
+  }
+
+    stage('Slack') {
+      steps{
+        slackSend message: 'test message'
+
+      }
+    }
+  }
+}
