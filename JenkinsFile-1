@@ -1,8 +1,9 @@
 pipeline {
   environment {
-    imagename = "kubernetesdevops/sonarqube-jenkins"
+    imagename = "kubernetesdevops/kubernetesdevops/sonarqube-jenkins"
     registryCredential = 'credential docker'
     dockerImage = ''
+  }   
   agent any
   stages {
     stage('Building image') {
