@@ -1,9 +1,12 @@
 pipeline {
-  stage ('Scan and Build Jar File') {
-    steps {
-      withSonarQubeEnv(installationName: 'sonrq1', credentialsId: 'SonarQubeToken') {
-      sh 'mvn clean package sonar:sonar'
+  agent any
+  stages ('Scan and Build Jar File') {
+    stage {
+      steps {
+        withSonarQubeEnv(installationName: 'sonrq1', credentialsId: 'SonarQubeToken') {
+        sh 'mvn clean package sonar:sonar'
+        }
       }
-    }
-  } 
+    } 
+  }
 }
